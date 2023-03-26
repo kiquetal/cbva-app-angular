@@ -1,0 +1,44 @@
+@import "~@angular/material/theming";
+
+$primary: mat-palette($mat-blue, 400);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$theme: mat-light-theme(($primary), ($accent));
+
+@include mat-core();
+@include angular-material-theme($theme);
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    color: $primary-contrast;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: $primary-contrast;
+  }
+
+  button {
+    margin-top: 16px;
+    background-color: $primary;
+    color: $primary-contrast;
+  }
+
+  p:last-of-type {
+    margin-top: 16px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $primary;
+  }
+}
+
+mat-toolbar {
+  margin-bottom: 16px;
+}
