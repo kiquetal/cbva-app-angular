@@ -18,11 +18,18 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export class HomeComponent implements OnInit {
   email = '';
   password = '';
+
+  password2 = '';
   confirmed = false;
+
+  typeAction = '';
 
   constructor(private router: Router, private route: ActivatedRoute) {
   }
 
+  register() {
+    console.log("register");
+  }
   confirmEmail() {
     this.confirmed = true;
   //  this.router.navigate(['/confirm']);
@@ -44,17 +51,25 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const fragment = this.route.snapshot.fragment;
+    const fragment = this.route.snapshot.fragment
+    console.log("log from fragment",fragment);
+    const query = this.route.snapshot.queryParams;
+    console.log("log from ",query);
     let accessToken: string | null = null
     // @ts-ignore
     accessToken = new URLSearchParams(fragment).get('access_token');
-
+    let typeAction: string | null = null;
+    // @ts-ignore
+    typeAction = new URLSearchParams(fragment).get('type');
+    // @ts-ignore
+    this.typeAction = typeAction;
     if (accessToken) {
       // @ts-ignore
       supabase.auth.getUser(accessToken).then(({data: {user}}, error) => {
         if (error) {
           console.log(error);
         } else {
+          console.log(JSON.stringify(user));
           this.email = user?.email;
           console.log(this.email);
         }
